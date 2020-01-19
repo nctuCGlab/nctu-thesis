@@ -40,6 +40,7 @@
 \RequirePackage{titletoc} % for formatting toc
 \RequirePackage{etoolbox} % for patchcmd
 \RequirePackage{algorithm}
+
 \RequirePackage{algpseudocode}
 
 % Declarations
@@ -57,7 +58,7 @@
 \DeclareRobustCommand{\acknowledgements}[2]{\gdef\@acknowledgementsen{#1}\gdef\@acknowledgementszh{#2}}
 
 \abstractname{Abstract}{摘要}
-\acknowledgements{Acknowledgements}{誌謝}
+\acknowledgements{Acknowledgements}{Acknowledgements}
 
 \DeclareRobustCommand{\clearpages}{\if@openright\cleardoublepage\else\clearpage\fi}
 
@@ -130,10 +131,11 @@
 
 \newenvironment{quotationpage}[1]
   {\clearpages
-   \chapter*{\centerline{#1}}
+   %\chapter*{\centerline{#1}}
    \addcontentsline{toc}{chapter}{#1}
    \quotation}
   {\endquotation}
+
 
 \newenvironment{abstracten}{\begin{quotationpage}{\@abstractnameen}\begin{spacing}{\@doubleline}}{\end{spacing}\end{quotationpage}}
 \newenvironment{abstractzh}{\begin{quotationpage}{\@abstractnamezh}\begin{spacing}{\@onehalfline}}{\end{spacing}\end{quotationpage}}
@@ -152,7 +154,7 @@
 \renewcommand{\cftlottitlefont}{\hfill \Huge\bfseries}
 \renewcommand{\cftafterlottitle}{\hfill}
 
-\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter}{1em}{}
+\titleformat{\chapter}[hang]{\bfseries}{\thechapter}{1em}{}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % dots for chapters
 \titlecontents{chapter}[0em]{}{\makebox[1.5em][l]{\thecontentslabel}}{}{\cftdotfill{\cftdotsep}\contentspage}
 
@@ -202,42 +204,46 @@
   % Very Naive Chinese Number
   \DeclareRobustCommand{\naiveZhNum}[1]{
   \ifnum #1 = 1
-  一
+  1
   \else \ifnum #1 = 2
-  二
+  2
   \else \ifnum #1 = 3
-  三
+  3
   \else \ifnum #1 = 4
-  四
+  4
   \else \ifnum #1 = 5
-  五
+  5
   \else \ifnum #1 = 6
-  六
+  6
   \else \ifnum #1 = 7
-  七
+  7
   \else \ifnum #1 = 8
-  八
+  8
   \else \ifnum #1 = 9
-  九
+  9
   \else
   #1
   \fi\fi\fi\fi\fi\fi\fi\fi\fi
   }
+  %Control  Chapter format
+  \titleformat{\chapter}[display]{\Huge\bfseries}{Chapter\naiveZhNum \thechapter}{1em}{}
+  \titlecontents{chapter}[0em]{}{\makebox[4.5em][l]{Chapter \naiveZhNum  {\thecontentslabel}}}{}{\cftdotfill{\cftdotsep}\contentspage}
 
-  \titleformat{\chapter}{\centering\Huge\bfseries}{第\naiveZhNum{\thechapter}章}{1em}{}
-  \titlecontents{chapter}[0em]{}{\makebox[4.1em][l]{第\naiveZhNum{\thecontentslabel}章}}{}{\cftdotfill{\cftdotsep}\contentspage}
+  %Control section
+  \titleformat{\section}[block]{\Large\bfseries}{\thesection}{0.5em}{}
+  \titleformat{\subsection}[block]{\large\bfseries}{\thesubsection}{0.5em}{}
 
-  \floatname{algorithm}{演算法}
-  \renewcommand{\algorithmicrequire}{\textbf{輸入：}}
-  \renewcommand{\algorithmicensure}{\textbf{輸出：}}
+  \floatname{Algorithm}{Algorithm}
+  \renewcommand{\algorithmicrequire}{\textbf{Input：}}
+  \renewcommand{\algorithmicensure}{\textbf{Output：}}
 
 
-  \renewcommand{\contentsname}{目錄}
-  \renewcommand{\listfigurename}{圖目錄}
-  \renewcommand{\listtablename}{表目錄}
-  \renewcommand{\tablename}{表}
-  \renewcommand{\figurename}{圖}
-  \renewcommand{\bibname}{參考文獻}
+  \renewcommand{\contentsname}{Contents}
+  \renewcommand{\listfigurename}{List of Figures}
+  \renewcommand{\listtablename}{List of Tables}
+  \renewcommand{\tablename}{Table}
+  \renewcommand{\figurename}{Figure}
+  \renewcommand{\bibname}{Reference}
 
   \DeclareRobustCommand{\@startappendix}{
   \titleformat{\chapter}{\centering\Huge\bfseries}{附錄 \thechapter}{1em}{}

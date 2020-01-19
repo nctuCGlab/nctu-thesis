@@ -9,8 +9,18 @@
 \usepackage{pdfpages} % include inserted .pdf to page no.
 \usepackage{wallpaper} % watermark
 
+%for algorithm
+%\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{epsfig}
+
+%for subfigure
+\usepackage{subcaption}
 % Format the refs
-\usepackage[sort]{natbib}
+\usepackage[square,numbers]{natbib}
+
 \usepackage[hidelinks]{hyperref}
 
 % For Cross ref
@@ -46,7 +56,7 @@
 
 % Set the default fonts
 \setmainfont{Times New Roman}
-\setCJKmainfont{TW-Kai} %modify for overleaf service
+\setCJKmainfont{標楷體} %modify for overleaf service
 
 % Your information goes here
 \input{nctuvars}
@@ -54,7 +64,7 @@
 \begin{document}
 
 % 論文浮水印 如需浮水印時取消此行註解
-% \input{src/with-watermark.tex}
+ \input{src/with-watermark.tex}
 
 \hypersetup{pageanchor=false}
 
@@ -68,21 +78,23 @@
 \includepdf[pages={1}]{pdfs/cover.pdf}
 \includepdf[pages={1}]{pdfs/first_page.pdf}
 
+
+
+%插入論文審定書 著作權審定書等等
+
+%\addcontentsline{toc}{chapter}{中文論文口試委員會審定書}
+%\includepdf[pages={1}, pagecommand={}]{pdfs/ch.pdf}
+%\addcontentsline{toc}{chapter}{Thesis Certificate}
+%\includepdf[pages={1}, pagecommand={}]{pdfs/en.pdf}
+%\addcontentsline{toc}{chapter}{論文著作權授權書}
+%\includepdf[pages={1}, pagecommand={}]{pdfs/copyright.pdf}
+
 % 開始編羅馬數字頁碼
 \clearpages
 \setcounter{page}{1}
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
 \phantomsection
-
-%插入論文審定書 著作權審定書等等
-\addcontentsline{toc}{chapter}{中文論文口試委員會審定書}
-\includepdf[pages={1}, pagecommand={}]{pdfs/ch.pdf}
-\addcontentsline{toc}{chapter}{Thesis Certificate}
-\includepdf[pages={1}, pagecommand={}]{pdfs/en.pdf}
-\addcontentsline{toc}{chapter}{論文著作權授權書}
-\includepdf[pages={1}, pagecommand={}]{pdfs/copyright.pdf}
-
 % 摘要 致謝
 \input{abstract}
 \input{acknowledgements}
@@ -101,9 +113,10 @@
 \listoftables
 
 \mainmatter
-% % tables and figures counter without chapter
-\counterwithout{table}{chapter}
-\counterwithout{figure}{chapter}
+% tables and figures counter within chapter
+%This create format such as Figure 1.1 
+\counterwithin{table}{chapter}
+\counterwithin{figure}{chapter}
 
 % Your thesis goes here
 \input{chapters/introduction}
@@ -119,12 +132,15 @@
 \clearpages
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
-\bibliographystyle{apa}
+%You can change the citation format here (Natbib bibliography styles), if you want to use bibtex style 
+%Get more Natbib bibliography styles: https://www.sharelatex.com/learn/Natbib_bibliography_styles
+%Sorting according to the last name of first author.
+\bibliographystyle{abbrvnat}
 
-% Your bibliography goes here
+%Where the bibliography will be printed
 \bibliography{thesis}
 \@startappendix
 
 % 交大圖書館規定附錄在參考文獻之後
-\input{chapters/otherbib}
+%\input{chapters/otherbib}
 \end{document}
